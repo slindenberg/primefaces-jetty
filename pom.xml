@@ -5,7 +5,7 @@
 
 	<groupId>de.stefanlindenberg.web</groupId>
 	<artifactId>primefaces-jetty</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 
 	<name>Primefaces 5 on Embedded Jetty 9</name>
 
@@ -137,7 +137,7 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					<finalName>${project.artifactId}</finalName>
+					<finalName>${project.artifactId}-${project.version}</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 				</configuration>
 				<executions>
