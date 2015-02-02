@@ -2,6 +2,8 @@ package de.stefanlindenberg.web.pfjetty;
 
 import java.awt.Desktop;
 import java.awt.GraphicsEnvironment;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
@@ -215,6 +217,29 @@ public final class StandaloneJetty {
 					}
 				}
 			});
+			PopupMenu popup = new PopupMenu();
+			MenuItem browseAction = new MenuItem("Browse");
+			browseAction.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						Desktop.getDesktop().browse(new URI("http://localhost:" + port));
+					} catch (Exception ex) {
+					}
+				}
+			});
+			MenuItem quitAction = new MenuItem("Quit");
+			quitAction.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					System.exit(0);
+				}
+			});
+
+			popup.add(browseAction);
+			popup.add(quitAction);
+			trayIcon.setPopupMenu(popup);
 			SystemTray.getSystemTray().add(trayIcon);
 			trayIcon.displayMessage("Jetty Embedded Server (http://localhost:" + port + ")", "Click this icon to open the browser.", TrayIcon.MessageType.INFO);
 		}

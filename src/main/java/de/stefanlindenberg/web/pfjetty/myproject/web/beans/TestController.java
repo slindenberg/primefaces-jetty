@@ -28,7 +28,7 @@ public class TestController implements Serializable {
 	}
 
 	public void buttonAction(ActionEvent actionEvent) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome to Primefaces!", null);
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome to PrimeFaces!", null);
 		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
