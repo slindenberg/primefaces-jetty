@@ -1,0 +1,42 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="en" contentType="text/html">
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+		</f:facet>
+		<ui:insert name="header">
+			<ui:insert name="metadata" />
+		</ui:insert>
+		<title>Primefaces 5 / Jetty 9</title>
+	</h:head>
+
+	<h:body>
+
+		<h1>Primefaces 5 on Jetty Embedded 9</h1>
+
+		<p:ajaxStatus style="width:200px;" onerror="alert('Error occured sending Ajax post! No connection to server?')">
+			<f:facet name="default">
+				<h:outputText value="Status: Initial state." style="color:green" />
+			</f:facet>
+			<f:facet name="start">
+				<h:outputText value="Status: Ajax call ..." style="color:orange" />
+			</f:facet>
+			<f:facet name="complete">
+				<h:outputText value="Status: Completed." style="color:green" />
+			</f:facet>
+		</p:ajaxStatus>
+
+		<h:form>
+			<p:growl id="growl" life="2000" />
+			<p:commandButton value="Ajax Submit" actionListener="#{testController.buttonAction}" update="growl" />
+			<p:commandButton value="Non-Ajax Submit" actionListener="#{testController.buttonAction}" ajax="false" />
+			<p:commandButton value="Shutdown" actionListener="#{testController.shutdown}" ajax="true" async="true" />
+		</h:form>
+
+	</h:body>
+</f:view>
+</html>

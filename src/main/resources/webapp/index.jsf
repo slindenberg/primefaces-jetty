@@ -1,0 +1,1 @@
+<!-- This file is needed to trick the container, if a JSF file should be the welcome file. Otherwise use an index.hml with meta redirect. -->

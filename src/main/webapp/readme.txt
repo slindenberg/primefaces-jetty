@@ -1,0 +1,1 @@
+The files you are looking for are located in "src/main/resources/webapp".
