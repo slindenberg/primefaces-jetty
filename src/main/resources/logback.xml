@@ -10,24 +10,24 @@
 		</encoder>
 	</appender>
 
-	<!-- <appender name="FILE" class="ch.qos.logback.core.FileAppender"> -->
-	<!-- <file>primefaces-jetty.log</file> -->
-	<!-- <append>false</append> -->
-	<!-- <encoder> -->
-	<!-- <pattern>%p %d{dd.MM.yyyy HH:mm:ss} [%c] - %m%n</pattern> -->
-	<!-- </encoder> -->
-	<!-- </appender> -->
+	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
+		<file>primefaces-jetty.log</file>
+		<append>false</append>
+		<encoder>
+			<pattern>%p %d{dd.MM.yyyy HH:mm:ss} [%c] - %m%n</pattern>
+		</encoder>
+	</appender>
 
-	<!-- <appender name="DAILY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender"> -->
-	<!-- <file>primefaces-jetty.log</file> -->
-	<!-- <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> -->
-	<!-- <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern> -->
-	<!-- <maxHistory>3</maxHistory> -->
-	<!-- </rollingPolicy> -->
-	<!-- <encoder> -->
-	<!-- <pattern>%-4relative [%thread] %-5level %logger{35} - %msg%n</pattern> -->
-	<!-- </encoder> -->
-	<!-- </appender> -->
+	<appender name="DAILY_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>primefaces-jetty.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>3</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%p %d{dd.MM.yyyy HH:mm:ss} [%c] - %m%n</pattern>
+		</encoder>
+	</appender>
 
 	<logger name="de.stefanlindenberg" level="INFO" />
 

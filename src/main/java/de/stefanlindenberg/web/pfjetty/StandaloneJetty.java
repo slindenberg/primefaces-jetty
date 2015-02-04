@@ -8,6 +8,7 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
@@ -16,6 +17,7 @@ import java.util.logging.LogManager;
 
 import javax.faces.webapp.FacesServlet;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
@@ -34,7 +36,7 @@ import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.sun.faces.config.ConfigureListener;
 
-public final class StandaloneJetty {
+public final class StandaloneJetty implements UncaughtExceptionHandler {
 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -53,6 +55,8 @@ public final class StandaloneJetty {
 	}
 
 	public StandaloneJetty(int port) {
+
+		Thread.setDefaultUncaughtExceptionHandler(this);
 
 		// Redirect Java Util Logging, Apache Commons Logging and LOG4J to SLF4J ...
 		LogManager.getLogManager().reset();
@@ -179,14 +183,17 @@ public final class StandaloneJetty {
 		log.info("Initializing JSF programmatically ...");
 
 		// JSF parameters ...
-		context.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
-		context.setInitParameter("primefaces.THEME", "redmond");
-		context.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
 		context.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
 		context.setInitParameter("com.sun.faces.enableRestoreView11Compatibility", "true");
-		context.setInitParameter("defaultHtmlEscape", "true");
+
+		context.setInitParameter("javax.faces.PROJECT_STAGE", "Development");
 		context.setInitParameter("javax.faces.FACELETS_SKIP_COMMENTS", "true");
 		context.setInitParameter("javax.faces.STATE_SAVING_METHOD", "server");
+		context.setInitParameter("javax.faces.DEFAULT_SUFFIX", ".xhtml");
+
+		context.setInitParameter("defaultHtmlEscape", "true");
+
+		context.setInitParameter("primefaces.THEME", "redmond");
 		context.setInitParameter("primefaces.CLIENT_SIDE_VALIDATION", "false");
 
 		// Add JSF Listener for initialization ...
@@ -263,5 +270,14 @@ public final class StandaloneJetty {
 				}
 			}
 		}.start();
+	}
+
+	@Override
+	public void uncaughtException(Thread thread, Throwable e) {
+		log.error("Uncaught exception:" + e.getMessage(), e);
+		if (!GraphicsEnvironment.isHeadless()) {
+			String message = "[" + e.getClass() + "] " + e.getMessage();
+			JOptionPane.showMessageDialog(null, message, "An uncaught error occured!", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 }
